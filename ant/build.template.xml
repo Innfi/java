@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <project basedir="." default="build" name="innfisjava-server">
+    <property environment="env"/>
+    <property name="test.location" value="../test"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="10"/>
+    <property name="source" value="10"/>
+    <path id="innfisjava-server.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/junit-4.5.jar"/>
+    </path>
+    <path id="run.Main.classpath">
+        <path refid="innfisjava-server.classpath"/>
+        <pathelement location="lib/junit-4.5.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="test">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+
+    <target name="build-subprojects"/>
+
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" 
+            source="${source}" target="${target}">
+            <src path="src"/>
+            <src path="test"/>
+            <classpath refid="innfisjava-server.classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="bin" />
+        <jar destfile="innfisjava-server.jar" basedir="bin/">
+            <manifest>
+                <attribute name="Main-Class" value="InnfisJava.Main" />
+            </manifest>
+        </jar>
+    </target>
+</project>
