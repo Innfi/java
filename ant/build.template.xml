@@ -7,11 +7,6 @@
     <property name="source" value="10"/>
     <path id="innfisjava-server.classpath">
         <pathelement location="bin"/>
-        <pathelement location="lib/junit-4.5.jar"/>
-    </path>
-    <path id="run.Main.classpath">
-        <path refid="innfisjava-server.classpath"/>
-        <pathelement location="lib/junit-4.5.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -46,11 +41,16 @@
         </javac>
     </target>
 
+    <manifestclasspath property="manifest.classpath" jarfile="innfisjava-server.jar">
+        <classpath refid="innfisjava-server.classpath"/>
+    </manifestclasspath>
+
     <target name="jar">
         <mkdir dir="bin" />
         <jar destfile="innfisjava-server.jar" basedir="bin/">
             <manifest>
                 <attribute name="Main-Class" value="InnfisJava.Main" />
+                <attribute name="Class-Path" value="${manifest.classpath}" />
             </manifest>
         </jar>
     </target>
