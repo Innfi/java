@@ -1,6 +1,7 @@
 package playground;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -23,7 +24,7 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
 
     @Override 
     public void channelReadComplete(ChannelHandlerContext context) throws Exception {
-
+        context.writeAndFlush(Unpooled.EMPTY_BUFFER);
     }
 
     @Override 
@@ -31,5 +32,11 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
         if(this.callback != null) callback.afterClose(context);
 
         super.channelUnregistered(context);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext context, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        context.close();
     }
 }
