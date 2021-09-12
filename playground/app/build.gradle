@@ -37,3 +37,10 @@ application {
     // Define the main class for the application.
     mainClass = 'playground.App'
 }
+
+test {
+    testLogging {
+        outputs.upToDateWhen {false}
+        showStandardStreams = true
+    }
+}
