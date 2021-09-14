@@ -43,7 +43,7 @@ public class MongoDBTest {
         userCollection.drop();
     }
 
-    @Test
+    //@Test
     public void setIndex() {
         MongoClient mongoClient = MongoClients.create(dbUrl);
 
@@ -61,12 +61,12 @@ public class MongoDBTest {
             System.out.println("name: " + doc.getString("name").toString());
 
             if(doc.getString("name").equals(indexName)) {
-                userCollection.drop();
+                //userCollection.drop();
                 return;
             }
         }
 
-        userCollection.drop();
+        //userCollection.drop();
         fail();
     }
 
@@ -76,5 +76,47 @@ public class MongoDBTest {
         inputDocument.put("email", "ennfi@test.com");
 
         userCollection.insertOne(inputDocument);
+    }
+
+    @Test
+    public void readList() throws Exception {
+        MongoClient mongoClient = MongoClients.create(dbUrl);
+
+        MongoDatabase db = mongoClient.getDatabase("testDB");
+        MongoCollection<Document> userCollection = db.getCollection("user");
+
+        List<Document> customers = generateDummyList();
+
+        Document inputDocument = new Document();
+        inputDocument.put("username", "innfi");
+        inputDocument.put("email", "innfi@test.com");
+        inputDocument.put("customers", customers);
+
+        userCollection.insertOne(inputDocument);
+
+        Bson findFilter = Filters.eq("username", "innfi");
+        Document findResult = userCollection.find(findFilter).first();
+
+        Object customersObject = findResult.get("customers");
+        System.out.println(customersObject);
+    }
+
+    protected List<Document> generateDummyList() {
+        List<Document> customers = new ArrayList<Document>();
+
+        Document doc1 = new Document();
+        doc1.put("id", "ennfi");
+
+        Document doc2 = new Document();
+        doc2.put("id", "milli");
+
+        Document doc3 = new Document();
+        doc3.put("id", "elise");
+
+        customers.add(doc1);
+        customers.add(doc2);
+        customers.add(doc3);
+
+        return customers;
     }
 }
