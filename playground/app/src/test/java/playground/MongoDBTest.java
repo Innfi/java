@@ -19,7 +19,7 @@ import com.mongodb.client.MongoClient;
 public class MongoDBTest {
     public final String dbUrl = "mongodb://192.168.1.102";
 
-    //@Test 
+    @Test 
     public void insertAndFind() {
         MongoClient mongoClient = MongoClients.create(dbUrl);
 
@@ -43,7 +43,7 @@ public class MongoDBTest {
         userCollection.drop();
     }
 
-    //@Test
+    @Test
     public void setIndex() {
         MongoClient mongoClient = MongoClients.create(dbUrl);
 

@@ -29,6 +29,10 @@ dependencies {
     //implementation group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.1.1'
     implementation 'org.mongodb:mongodb-driver-sync:4.2.3'
     
+    // https://mvnrepository.com/artifact/redis.clients/jedis
+    implementation group: 'redis.clients', name: 'jedis', version: '3.7.0'
+
+
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13.2'
 }
