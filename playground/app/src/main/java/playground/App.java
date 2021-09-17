@@ -30,7 +30,7 @@ public class App {
                 return "write";
             }
             public void afterClose(ChannelHandlerContext context) {
-
+                System.out.println("afterClose" + context.name());
             }
         });
 
