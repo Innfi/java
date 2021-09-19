@@ -9,6 +9,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class MessageHandler extends ChannelInboundHandlerAdapter {
     protected CallbackInterface callback;
 
+    public MessageHandler() {
+
+    }
+
     public MessageHandler(CallbackInterface callback) {
         this.callback = callback;
     }
@@ -17,19 +21,21 @@ public class MessageHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext context, Object msg) throws Exception {
         ByteBuf buffer = (ByteBuf)msg;
         String inputString = buffer.toString();
+        System.out.println("inputString: " + inputString);
 
-        this.callback.read(inputString);
-        //context.write(msg);
+        //this.callback.read(inputString);
+        context.write(msg);
     }
 
     @Override 
     public void channelReadComplete(ChannelHandlerContext context) throws Exception {
+        System.out.println("channelReadComplete]");
         context.writeAndFlush(Unpooled.EMPTY_BUFFER);
     }
 
     @Override 
     public void channelUnregistered(ChannelHandlerContext context) throws Exception {
-        if(this.callback != null) callback.afterClose(context);
+        //if(this.callback != null) callback.afterClose(context);
 
         super.channelUnregistered(context);
     }
