@@ -1,0 +1,16 @@
+syntax="proto3";
+
+/* protoc --java_out=../ ./registerUser.proto  */
+package playground;
+
+
+message RegisterUser {
+    string email = 1;
+    string userId = 2;
+    repeated string badges = 3;
+}
+
+message RegisterUserResponse {
+    string email = 1;
+    int32 ticket = 2;
+}

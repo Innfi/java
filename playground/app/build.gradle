@@ -32,6 +32,8 @@ dependencies {
     // https://mvnrepository.com/artifact/redis.clients/jedis
     implementation group: 'redis.clients', name: 'jedis', version: '3.7.0'
 
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+    implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '3.12.4'
 
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13.2'
